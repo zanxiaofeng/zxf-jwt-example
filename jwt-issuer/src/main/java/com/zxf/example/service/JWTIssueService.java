@@ -5,11 +5,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -20,17 +18,18 @@ import java.util.Date;
 
 @Service
 public class JWTIssueService {
-    public String issue(String businessId, String targetUrl, Integer expiredSeconds) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, URISyntaxException {
+    public String issue(String userId, String orderId, String targetUrl, Integer expiredSeconds) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, URISyntaxException {
         Date now = new Date(System.currentTimeMillis());
         Date expired = new Date(System.currentTimeMillis() + expiredSeconds * 1000);
         Algorithm rs256ForSign = Algorithm.RSA256(null, loadPrivateKey());
 
         String jwtToken = JWT.create()
-                .withIssuer("Davis")
+                .withIssuer("ZXF")
                 .withIssuedAt(now)
                 .withNotBefore(now)
                 .withExpiresAt(expired)
-                .withClaim("businessId", businessId)
+                .withClaim("userId", userId)
+                .withClaim("orderId", orderId)
                 .withClaim("targetUrl", targetUrl)
                 .sign(rs256ForSign);
         return jwtToken;

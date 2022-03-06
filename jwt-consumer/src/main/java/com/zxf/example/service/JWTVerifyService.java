@@ -22,7 +22,7 @@ public class JWTVerifyService {
     public DecodedJWT verify(String jwtToken) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException, URISyntaxException {
         Algorithm rs256ForVerify = Algorithm.RSA256(loadPublicKey(), null);
         DecodedJWT verifiedJWT = JWT.require(rs256ForVerify)
-                .withIssuer("Davis")
+                .withIssuer("ZXF")
                 .build()
                 .verify(jwtToken);
         return verifiedJWT;

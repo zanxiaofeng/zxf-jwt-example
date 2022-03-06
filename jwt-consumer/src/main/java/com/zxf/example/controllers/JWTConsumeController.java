@@ -4,12 +4,15 @@ package com.zxf.example.controllers;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.zxf.example.service.JWTVerifyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
@@ -21,9 +24,11 @@ public class JWTConsumeController {
     private JWTVerifyService jwtVerifyService;
 
     @PostMapping("/jwt/consume")
-    public ModelAndView consume(@ModelAttribute ConsumeRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException, URISyntaxException {
+    public ModelAndView consume(HttpServletRequest httpRequest, @ModelAttribute ConsumeRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException, URISyntaxException {
         System.out.println("JWTConsumeController::consume: " + request.getJwt());
         DecodedJWT verifiedJwt = jwtVerifyService.verify(request.getJwt());
+        HttpSession session = httpRequest.getSession(true);
+        session.setAttribute("verifiedJwt", verifiedJwt);
         ModelAndView modelAndView = new ModelAndView("consume");
         modelAndView.addObject("result", verifiedJwt);
         return modelAndView;

@@ -18,12 +18,13 @@ public class JWTIssueController {
     private JWTIssueService jwtIssueService;
 
     @GetMapping("/jwt/issue")
-    public ModelAndView issue(@RequestParam String businessId, @RequestParam String targetUrl) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, URISyntaxException {
-        System.out.println("JWTIssueController::issue: " + businessId + ", " + targetUrl);
-        String jwt = jwtIssueService.issue(businessId, targetUrl, 30);
+    public ModelAndView issue(@RequestParam String userId, @RequestParam String orderId, @RequestParam String targetUrl) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, URISyntaxException {
+        System.out.println("JWTIssueController::issue: " + userId + ", " + orderId + ", " + targetUrl);
+        String jwt = jwtIssueService.issue(userId, orderId, targetUrl, 30);
         ModelAndView modelAndView = new ModelAndView("jwt_submit");
         modelAndView.addObject("jwt", jwt);
-        modelAndView.addObject("businessId", businessId);
+        modelAndView.addObject("userId", userId);
+        modelAndView.addObject("orderId", orderId);
         modelAndView.addObject("targetUrl", targetUrl);
         return modelAndView;
     }
