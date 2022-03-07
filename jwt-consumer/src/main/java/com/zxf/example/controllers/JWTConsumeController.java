@@ -3,6 +3,7 @@ package com.zxf.example.controllers;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.zxf.example.service.JWTVerifyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,12 +33,22 @@ public class JWTConsumeController {
         return modelAndView;
     }
 
-    @GetMapping("/jwt/consumed")
-    public ModelAndView consumed(HttpServletRequest httpRequest) {
-        System.out.println("JWTConsumeController::consumed");
-        ModelAndView modelAndView = new ModelAndView("consumed");
+    @GetMapping("/jwt/consume/result")
+    public ModelAndView consumeResult(HttpServletRequest httpRequest) {
+        System.out.println("JWTConsumeController::consume.result");
         HttpSession session = httpRequest.getSession(false);
+        ModelAndView modelAndView = new ModelAndView("consume_result");
         modelAndView.addObject("result", session.getAttribute("verifiedJwt"));
+        return modelAndView;
+    }
+
+    @GetMapping("/jwt/consume/close")
+    public ModelAndView consumeClose(HttpServletRequest httpRequest) {
+        System.out.println("JWTConsumeController::consume.close");
+        HttpSession session = httpRequest.getSession(false);
+        session.invalidate();
+        SecurityContextHolder.getContext().setAuthentication(null);
+        ModelAndView modelAndView = new ModelAndView("consume_close");
         return modelAndView;
     }
 

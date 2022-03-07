@@ -25,6 +25,7 @@ public class JWTIssueService {
 
         String jwtToken = JWT.create()
                 .withIssuer("ZXF")
+                .withSubject("JWT Issuer Test")
                 .withIssuedAt(now)
                 .withNotBefore(now)
                 .withExpiresAt(expired)
