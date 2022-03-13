@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class EHCacheConfig {
     @Bean
     public Cache consumeCache() {
-        CacheManager cacheManager = CacheManager.create("./src/main/resources/ehcache.xml");
+        CacheManager cacheManager = CacheManager.create(EHCacheConfig.class.getClassLoader().getResource("ehcache.xml"));
         return cacheManager.getCache("ConsumeCache");
     }
 }
