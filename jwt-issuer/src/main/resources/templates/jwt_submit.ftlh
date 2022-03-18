@@ -21,8 +21,9 @@
 <body>
 <h1>UserId: ${userId}</h1>
 <h1>OrderId: ${orderId}</h1>
+<h1>TargetUrl: ${targetUrl}</h1>
 <h1 id="msg">Will auto submit after 5 seconds</h1>
-<form action="${targetUrl}" method="POST" target="_blank">
+<form action="http://localhost:9081/jwt/consume/gateway" method="POST" target="_blank">
     <input type="hidden" name="jwt" value="${jwt}">
     <input type="submit">
 </form>

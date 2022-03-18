@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/jwt/consume").permitAll()
+                .antMatchers("/jwt/consume/gateway").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable();

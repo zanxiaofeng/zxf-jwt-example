@@ -30,7 +30,7 @@ public class JWTAuthentication implements Authentication {
 
     @Override
     public Object getPrincipal() {
-        return decodedJWT.getClaim("userId");
+        return decodedJWT.getClaim("userId").asString();
     }
 
     @Override
