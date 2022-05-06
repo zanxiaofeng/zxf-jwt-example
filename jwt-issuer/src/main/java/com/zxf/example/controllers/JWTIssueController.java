@@ -32,4 +32,14 @@ public class JWTIssueController {
         modelAndView.addObject("targetUrl", targetUrl);
         return modelAndView;
     }
+
+    @GetMapping("/jwt/issue-submit")
+    public ModelAndView issueAndAutoSubmit(@RequestParam String userId, @RequestParam String orderId, @RequestParam String targetUrl) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, URISyntaxException {
+        System.out.println("JWTIssueController::issueAndAutoSubmit: " + userId + ", " + orderId + ", " + targetUrl);
+        targetURLChecker.checkTargetUrl(targetUrl);
+        String jwt = jwtIssueService.issue(userId, orderId, targetUrl, 30);
+        ModelAndView modelAndView = new ModelAndView("jwt_submit_auto");
+        modelAndView.addObject("jwt", jwt);
+        return modelAndView;
+    }
 }
