@@ -14,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 @Controller
-public class JWTIssueController {
+public class                                                                                                                                                            JWTIssueController {
     @Autowired
     private TargetURLChecker targetURLChecker;
     @Autowired

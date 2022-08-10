@@ -6,6 +6,7 @@ import net.sf.ehcache.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -62,9 +63,7 @@ public class JWTTokenStore {
     }
 
     private String getMySessionId(HttpServletRequest request) {
-        return Arrays.stream(request.getCookies())
-                .filter(cookie -> cookie.getName().equals("MY_SESSION_ID"))
-                .findFirst()
-                .map(Cookie::getValue).orElse("");
+        Cookie cookie = WebUtils.getCookie(request, "MY_SESSION_ID");
+        return cookie == null ? "" : cookie.getValue();
     }
 }

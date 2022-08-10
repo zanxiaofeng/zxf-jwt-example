@@ -55,7 +55,6 @@ public class JWTConsumeController {
     public ModelAndView close(HttpServletRequest httpRequest) {
         System.out.println("JWTConsumeController::close");
         jwtTokenStore.removeJWToken(httpRequest);
-        SecurityContextHolder.getContext().setAuthentication(null);
         ModelAndView modelAndView = new ModelAndView("close");
         return modelAndView;
     }
