@@ -40,6 +40,7 @@ public class JWTIssueService {
 
     private RSAPrivateKey loadPrivateKey() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, URISyntaxException {
         URL privateKeyURL = this.getClass().getClassLoader().getResource("keys/private-key");
+        // Please note "Files.readAllBytes(Paths.get(privateKeyURL.toURI()))" will fail when run this program by jar
         byte[] encodedPrivateKey = Files.readAllBytes(Paths.get(privateKeyURL.toURI()));
         return (RSAPrivateKey) KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(encodedPrivateKey));
     }

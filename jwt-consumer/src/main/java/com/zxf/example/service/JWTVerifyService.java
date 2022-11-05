@@ -30,6 +30,7 @@ public class JWTVerifyService {
 
     private RSAPublicKey loadPublicKey() throws NoSuchAlgorithmException, InvalidKeySpecException, IOException, URISyntaxException {
         URL publicKeyURL = this.getClass().getClassLoader().getResource("keys/public-key");
+        // Please note "Files.readAllBytes(Paths.get(publicKeyURL.toURI()))" will fail when run this program by jar
         byte[] encodedPublicKey = Files.readAllBytes(Paths.get(publicKeyURL.toURI()));
         return (RSAPublicKey) KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(encodedPublicKey));
     }
