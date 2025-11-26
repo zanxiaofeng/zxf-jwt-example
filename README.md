@@ -21,6 +21,7 @@
 
 # JWT.IO
 - https://www.jwt.io/
+- https://auth0.com/blog/demystifying-jose-jwt-family/
 
 # Javascript Object Signing and Encryption(JOSE)
 - Javascript Object Signing and Encryption(JOSE) is the overarching framework.
